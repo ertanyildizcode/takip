@@ -1,0 +1,7 @@
+{
+    "/api/*":{
+        "target":"http://laravel.local",
+        "secure":false,
+        "loglevel":"debug"
+    }
+}
