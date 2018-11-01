@@ -23,5 +23,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/adduser', 'UsersController@index')->name('adduser');
-Route::post('/takeuser', 'UsersController@take')->name('takeuser');
+Route::post('/takeuser', 'UsersController@takeuser')->name('takeuser');
+Route::delete('/deluser', 'UsersController@deluser')->name('deluser');
+Route::post('/updateuser', 'UsersController@updateuser')->name('updateuser');
+Route::post('/validation', 'UsersController@validation')->name('validation');
 

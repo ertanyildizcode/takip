@@ -13,6 +13,17 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'karlmonson/laravel-ping' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Karlmonson\\Ping\\PingServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Ping' => 'Karlmonson\\Ping\\Facades\\Ping',
+    ),
+  ),
   'laravel/tinker' => 
   array (
     'providers' => 

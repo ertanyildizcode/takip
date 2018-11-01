@@ -166,6 +166,10 @@ const Typography = Loadable({
   loader: () => import('./views/Theme/Typography'),
   loading: Loading,
 });
+const Dhcp = Loadable({
+  loader: () => import('./views/Theme/Dhcp'),
+  loading: Loading,
+});
 
 const Widgets = Loadable({
   loader: () => import('./views/Widgets/Widgets'),
@@ -191,6 +195,7 @@ const routes = [
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },
+  { path: '/theme/dhcp', name: 'Dhcp', component: Dhcp },
   { path: '/base', exact: true, name: 'Base', component: Cards },
   { path: '/base/cards', name: 'Cards', component: Cards },
   { path: '/base/forms', name: 'Forms', component: Forms },

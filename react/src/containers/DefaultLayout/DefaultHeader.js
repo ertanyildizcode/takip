@@ -3,7 +3,7 @@ import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLin
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.svg'
+import logo from '../../assets/img/brand/Pardus-logo-02.png'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 
 const propTypes = {
@@ -21,7 +21,7 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand
+        <AppNavbarBrand  href="/"
           full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
@@ -40,7 +40,7 @@ class DefaultHeader extends Component {
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
+            <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger"></Badge></NavLink>
           </NavItem>
           <NavItem className="d-md-down-none">
             <NavLink href="#"><i className="icon-list"></i></NavLink>

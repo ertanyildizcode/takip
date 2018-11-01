@@ -1,170 +1,289 @@
 import React, { Component } from 'react';
-
+import { Modal,ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import {
+Badge,
+Button,
+ButtonDropdown,
+Card,
+CardBody,
+CardFooter,
+CardHeader,
+Col,
+Collapse,
+DropdownItem,
+DropdownMenu,
+DropdownToggle,
+Fade,
+Form,
+FormGroup,
+FormText,
+FormFeedback,
+Input,
+InputGroup,
+InputGroupAddon,
+InputGroupText,
+Label,
+Row,
+} from 'reactstrap';
+window.onload=function(){
+document.getElementById("demo").style.display = "none" ;
+document.getElementById("demo2").style.display = "none" ;
+document.getElementById("demo3").style.display = "none" ;
+document.getElementById("demo4").style.display = "none" ;
+document.getElementById("demo5").style.display = "none" ;
+}
 class Typography extends Component {
-  render() {
-    return (
-      <div className="animated fadeIn">
-        <div className="card">
-          <div className="card-header">
-            Headings
-          </div>
-          <div className="card-body">
-            <p>Documentation and examples for Bootstrap typography, including global settings, headings, body text, lists, and more.</p>
-            <table className="table">
-              <thead>
-              <tr>
-                <th>Heading</th>
-                <th>Example</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code></p>
-                </td>
-                <td><span className="h1">h1. Bootstrap heading</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h2&gt;&lt;/h2&gt;</code></p>
-                </td>
-                <td><span className="h2">h2. Bootstrap heading</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h3&gt;&lt;/h3&gt;</code></p>
-                </td>
-                <td><span className="h3">h3. Bootstrap heading</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h4&gt;&lt;/h4&gt;</code></p>
-                </td>
-                <td><span className="h4">h4. Bootstrap heading</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h5&gt;&lt;/h5&gt;</code></p>
-                </td>
-                <td><span className="h5">h5. Bootstrap heading</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <p><code className="highlighter-rouge">&lt;h6&gt;&lt;/h6&gt;</code></p>
-                </td>
-                <td><span className="h6">h6. Bootstrap heading</span></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            Headings
-          </div>
-          <div className="card-body">
-            <p><code className="highlighter-rouge">.h1</code> through <code className="highlighter-rouge">.h6</code> classes are also available, for when you
-              want to match the font styling of a heading but cannot use the associated HTML element.</p>
-            <div className="bd-example">
-              <p className="h1">h1. Bootstrap heading</p>
-              <p className="h2">h2. Bootstrap heading</p>
-              <p className="h3">h3. Bootstrap heading</p>
-              <p className="h4">h4. Bootstrap heading</p>
-              <p className="h5">h5. Bootstrap heading</p>
-              <p className="h6">h6. Bootstrap heading</p>
-            </div>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            Display headings
-          </div>
-          <div className="card-body">
-            <p>Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using
-              a <strong>display heading</strong>—a larger, slightly more opinionated heading style.</p>
-            <div className="bd-example bd-example-type">
-              <table className="table">
-                <tbody>
-                <tr>
-                  <td><span className="display-1">Display 1</span></td>
-                </tr>
-                <tr>
-                  <td><span className="display-2">Display 2</span></td>
-                </tr>
-                <tr>
-                  <td><span className="display-3">Display 3</span></td>
-                </tr>
-                <tr>
-                  <td><span className="display-4">Display 4</span></td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            Inline text elements
-          </div>
-          <div className="card-body">
-            <p>Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using
-              a <strong>display heading</strong>—a larger, slightly more opinionated heading style.</p>
-            <div className="bd-example">
-              <p>You can use the mark tag to <mark>highlight</mark> text.</p>
-              <p>
-                <del>This line of text is meant to be treated as deleted text.</del>
-              </p>
-              <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
-              <p>
-                <ins>This line of text is meant to be treated as an addition to the document.</ins>
-              </p>
-              <p><u>This line of text will render as underlined</u></p>
-              <p>
-                <small>This line of text is meant to be treated as fine print.</small>
-              </p>
-              <p><strong>This line rendered as bold text.</strong></p>
-              <p><em>This line rendered as italicized text.</em></p>
-            </div>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            Description list alignment
-          </div>
-          <div className="card-body">
-            <p>Align terms and descriptions horizontally by using our grid system’s predefined classes (or semantic mixins). For longer terms, you can
-              optionally add a <code className="highlighter-rouge">.text-truncate</code> class to truncate the text with an ellipsis.</p>
-            <div className="bd-example">
-              <dl className="row">
-                <dt className="col-sm-3">Description lists</dt>
-                <dd className="col-sm-9">A description list is perfect for defining terms.</dd>
+constructor(props) {
+super(props);
+this.state = {
+modal:false,
+primary: false,
+success: false,
+warning: false,
+danger: false
+};
+this.toggle = this.toggle.bind(this);
+this.togglePrimary = this.togglePrimary.bind(this);
+this.toggleSuccess = this.toggleSuccess.bind(this);
+this.toggleWarning = this.toggleWarning.bind(this);
+this.toggleDanger = this.toggleDanger.bind(this);
+this.toggle = this.toggle.bind(this);
+this.toggleFade = this.toggleFade.bind(this);
+this.state = {
+collapse: true,
+fadeIn: true,
+timeout: 300
+};
+}
 
-                <dt className="col-sm-3">Euismod</dt>
-                <dd className="col-sm-9">
-                  <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
-                  <p>Donec id elit non mi porta gravida at eget metus.</p>
-                </dd>
+toggle() {
+this.setState({
+modal: !this.state.modal,
+});
+}
+togglePrimary() {
+this.setState({
+primary: !this.state.primary,
+});
+}
+toggleSuccess() {
+this.setState({
+success: !this.state.success,
+});
+}
 
-                <dt className="col-sm-3">Malesuada porta</dt>
-                <dd className="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+toggleWarning() {
+this.setState({
+warning: !this.state.warning,
+});
+}
 
-                <dt className="col-sm-3 text-truncate">Truncated term is truncated</dt>
-                <dd className="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+toggleDanger() {
+this.setState({
+danger: !this.state.danger,
+});
+}
 
-                <dt className="col-sm-3">Nesting</dt>
-                <dd className="col-sm-9">
-                  <dl className="row">
-                    <dt className="col-sm-4">Nested definition list</dt>
-                    <dd className="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
-                  </dl>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+toggleFade() {
+this.setState((prevState) => { return { fadeIn: !prevState }});
+}
+myFunction() {
+
+var x = document.getElementById("select").value;
+console.log(x);
+if(x==1){
+document.getElementById("demo").style.display = "" ;
+}
+else if(x==2){
+document.getElementById("demo").style.display = "none";
+}
+else if(x==0){
+document.getElementById("demo").style.display = 'none';
+document.getElementById("demo2").style.display = 'none';
+document.getElementById("demo3").style.display = "none" ;
+document.getElementById("demo4").style.display = 'none';
+document.getElementById("demo5").style.display = "none" ;
+}
+}
+myFunctionYeniDizin() {
+
+var x = document.getElementById("yeni_dizin").value;
+console.log(x);
+if(x==4){
+document.getElementById("demo2").style.display = "" ;
+document.getElementById("demo3").style.display = "none" ;
+document.getElementById("demo4").style.display = 'none';
+document.getElementById("demo5").style.display = "none" ;
+}
+else if(x==3){
+document.getElementById("demo2").style.display = "none" ;
+document.getElementById("demo3").style.display = "" ;
+}
+else if(x==0){
+document.getElementById("demo2").style.display = 'none';
+document.getElementById("demo3").style.display = "none" ;
+document.getElementById("demo4").style.display = 'none';
+document.getElementById("demo5").style.display = "none" ;
+}
+}
+myFunctionDizinGoc(){
+var x = document.getElementById("dizingoc").value;
+console.log(x);
+if(x==5){
+document.getElementById("demo4").style.display = "" ;
+document.getElementById("demo5").style.display = "none" ;
+}
+else if(x==6){
+document.getElementById("demo4").style.display = "none" ;
+document.getElementById("demo5").style.display = "" ;
+}
+else if(x==0){
+document.getElementById("demo4").style.display = 'none';
+document.getElementById("demo5").style.display = "none" ;
+}
+}
+
+render() {
+return (
+<Row>
+<Col xs="10" md="4">
+<Card>
+<CardHeader>
+<strong>Sunucu Ekleme</strong>
+</CardHeader>
+<CardBody>
+<Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
+<FormGroup row>
+<Col md="3">
+<Label htmlFor="select">Select</Label>
+</Col>
+<Col xs="10" md="7">
+<Input type="select" name="select" id="select" onChange={this.myFunction}>
+<option value="0">Seçiminizi Yapın</option>
+<option value="1">Yeni Dizin</option>
+<option value="2">Mevcut Dizin</option>
+</Input>
+</Col>
+</FormGroup>
+</Form>
+</CardBody>
+</Card>
+</Col>
+<Col xs="12" sm="6" id='demo'>
+<Card>
+<CardHeader>
+<strong>İşlem</strong>
+</CardHeader>
+<CardBody>
+<Col xs="12" md="9">
+<Input type="select" name="select" id="yeni_dizin" onChange={this.myFunctionYeniDizin}>
+<option value="0">Lütfen Seçin</option>
+<option value="3">Dizin Göç</option>
+<option value="4">Yeni Kurulum</option>
+</Input>
+<br></br>
+<FormGroup row id='demo2'>
+<Col xs="10" md="20">
+<form>
+<Input type="text" id="ip-address" name="text-input" size="50" placeholder="Ip address veya Hostname:" />
+<Input type="text" id="username" name="text-input" size="50" placeholder="Kullanıcı Adı:" />
+<Input type="password" id="password" name="text-input" size="50" placeholder="Password:" />
+<Button color="primary" onClick={this.togglePrimary} className="mr-1">Devam</Button>
+<Modal isOpen={this.state.primary} toggle={this.togglePrimary}
+className={'modal-primary ' + this.props.className}>
+<ModalHeader toggle={this.togglePrimary}>Kullanıcı Ekleme</ModalHeader>
+<ModalBody>
+<Col xs="10" md="20">
+<Input type="text" id="Admin" name="text-input" size="50" placeholder="Admin Yönetici Hesabı:" />
+<div>
+<Input type="password" id="password" name="text-input" size="50" placeholder="Password:" />
+<Input type="text" id="Domain" name="text-input" size="50" placeholder="Domain Adı:" />
+</div>
+</Col>
+</ModalBody>
+<ModalFooter>
+<Button color="primary" size="sm" onClick={this.handleSubmit}>Kaydet</Button>{' '}
+<Button color="secondary" size="sm" onClick={this.togglePrimary}>Çıkış</Button>
+</ModalFooter>
+</Modal>
+<Button type="reset" value="Reset" color="danger" className="mr-1"> Reset</Button>
+</form>
+</Col>
+</FormGroup>
+<FormGroup row id='demo3'>
+<Col xs="10" md="20">
+<Input type="select" name="select" id="dizingoc" onChange={this.myFunctionDizinGoc}>
+<option value="0">Lütfen Seçin</option>
+<option value="5">AD TO SAMBA DC</option>
+<option value="6">AD O LDAP</option>
+</Input>
+</Col>
+</FormGroup>
+<FormGroup row id='demo4'>
+<Col xs="10" md="20">
+<form>
+<Input type="text" id="ip-address" name="text-input" size="50" placeholder="sambaIp address veya Hostname:" />
+<Input type="text" id="username" name="text-input" size="50" placeholder="Kullanıcı Adı:" />
+<Input type="password" id="password" name="text-input" size="50" placeholder="Password:" />
+<Button color="primary" onClick={this.togglePrimary} className="mr-1">Devam</Button>
+<Modal isOpen={this.state.primary} toggle={this.togglePrimary}
+className={'modal-primary ' + this.props.className}>
+<ModalHeader toggle={this.togglePrimary}>Kullanıcı Ekleme</ModalHeader>
+<ModalBody>
+<Col xs="10" md="20">
+<Input type="text" id="ip" name="text-input" size="50" placeholder="AD Ip adress" />
+<Input type="text" id="yönetici_hesap" name="text-input" size="50" placeholder="AD Yönetici Hesabı" />
+<div>
+<Input type="password" id="password_samba" name="text-input" size="50" placeholder="Password:" />
+<Input type="text" id="Domain_samba" name="text-input" size="50" placeholder="Domain Adı:" />
+</div>
+</Col>
+</ModalBody>
+<ModalFooter>
+<Button color="primary" size="sm" onClick={this.handleSubmit}>Kaydet</Button>{' '}
+<Button color="secondary" size="sm" onClick={this.togglePrimary}>Çıkış</Button>
+</ModalFooter>
+</Modal>
+<Button type="reset" value="Reset" color="danger" className="mr-1"> Reset</Button>
+</form>
+</Col>
+</FormGroup>
+<FormGroup row id='demo5'>
+<Col xs="10" md="20">
+<form>
+<Input type="text" id="ip-address" name="text-input" size="50" placeholder="ldapIp address veya Hostname:" />
+<Input type="text" id="username" name="text-input" size="50" placeholder="Kullanıcı Adı:" />
+<Input type="password" id="password" name="text-input" size="50" placeholder="Password:" />
+<Button color="primary" onClick={this.togglePrimary} className="mr-1">Devam</Button>
+<Modal isOpen={this.state.primary} toggle={this.togglePrimary}
+className={'modal-primary ' + this.props.className}>
+<ModalHeader toggle={this.togglePrimary}>Kullanıcı Ekleme</ModalHeader>
+<ModalBody>
+<Col xs="10" md="20">
+<Input type="text" id="ip" name="text-input" size="50" placeholder="AD Ip adress" />
+<Input type="text" id="yönetici_hesap" name="text-input" size="50" placeholder="AD Yönetici Hesabı" />
+<div>
+<Input type="password" id="password_samba" name="text-input" size="50" placeholder="Password:" />
+<Input type="text" id="Domain_samba" name="text-input" size="50" placeholder="Domain Adı:" />
+</div>
+</Col>
+</ModalBody>
+<ModalFooter>
+<Button color="primary" size="sm" onClick={this.handleSubmit}>Kaydet</Button>{' '}
+<Button color="secondary" size="sm" onClick={this.togglePrimary}>Çıkış</Button>
+</ModalFooter>
+</Modal>
+<Button type="reset" value="Reset" color="danger" className="mr-1"> Reset</Button>
+</form>
+</Col>
+</FormGroup>
+</Col>
+</CardBody>
+</Card>
+</Col>
+</Row>
+);
+}
 }
 
 export default Typography;

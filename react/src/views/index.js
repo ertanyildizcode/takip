@@ -24,7 +24,7 @@ import Dashboard from './Dashboard';
 import { CoreUIIcons, Flags, FontAwesome, SimpleLineIcons } from './Icons';
 import { Alerts, Badges, Modals } from './Notifications';
 import { Login, Page404, Page500, Register } from './Pages';
-import { Colors, Typography } from './Theme';
+import { Colors, Typography,Dhcp } from './Theme';
 import Widgets from './Widgets';
 import Modal from './Modal';
 import Overlay from './ModalOverlay';
@@ -51,6 +51,7 @@ export {
   Login,
   Modals,
   Alerts,
+  Dhcp,
   Flags,
   SimpleLineIcons,
   FontAwesome,

@@ -6,12 +6,12 @@ export default {
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
-        text: 'NEW',
+      
       },
     },
     {
       title: true,
-      name: 'Theme',
+      name: 'İçindekiler',
       wrapper: {            // optional wrapper object
         element: '',        // required valid HTML5 element tag
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -19,15 +19,26 @@ export default {
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: 'Colors',
-      url: '/theme/colors',
-      icon: 'icon-drop',
+      name: 'Kullanıcılar',
+      url: '/users',
+      icon: 'icon-people',
     },
     {
-      name: 'Typography',
+      name: 'Sunucu Ekle',
       url: '/theme/typography',
       icon: 'icon-pencil',
     },
+    {
+      name: 'Sunucular',
+      url: '/theme/colors',
+      icon: 'icon-calculator',
+    },
+    {
+      name: 'SSHCon',
+      url: '/theme/dhcp',
+      icon: 'icon-puzzle',
+    },
+   
     {
       title: true,
       name: 'Components',
@@ -255,18 +266,6 @@ export default {
         },
       ],
     },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/react/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success',
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/react/',
-      icon: 'icon-layers',
-      variant: 'danger',
-    },
+
   ],
 };

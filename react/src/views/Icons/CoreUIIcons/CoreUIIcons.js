@@ -18,7 +18,7 @@ class CoreUIIcons extends Component {
             <Row className="text-center">
               <Col xs="6" sm="4" md="3" xl="2">
                 <i className="cui-account-logout icons font-2xl d-block mt-4"></i>
-                <div>account-logout</div>
+                account-logout
               </Col>
               <Col xs="6" sm="4" md="3" xl="2">
                 <i className="cui-action-redo icons font-2xl d-block mt-4"></i>

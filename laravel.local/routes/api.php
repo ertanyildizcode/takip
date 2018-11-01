@@ -22,4 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('users','HomeController@users');
 Route::get('getusers','UsersController@index');
 Route::get('adduser','UsersController@adduser');
-Route::post('take','UsersController@take');
+Route::post('takeuser','UsersController@takeuser');
+Route::delete('deluser','UsersController@deluser');
+Route::post('updateuser','UsersController@updateuser');
+Route::post('validation','UsersController@validation');
+
+Route::post('validationServers','UsersController@validationServers');
+Route::post('servers','UsersController@servers');
+Route::get('getServers','UsersController@getServers');
+
+Route::delete('delserver','UsersController@delserver');
