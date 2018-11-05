@@ -31,6 +31,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'laravelcollective/remote' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Collective\\Remote\\RemoteServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'SSH' => 'Collective\\Remote\\RemoteFacade',
+    ),
+  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

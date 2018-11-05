@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Ping;
+use SSH;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -23,8 +24,10 @@ class UsersController extends Controller
         $users = DB::select('select * from users');
     
        // $data=['userid'=>"sadsad",'username'=>"asd",'userpass'=>"dsada"];
-
-
+       // $ip="10.150.31.107";
+      /* exec("ping -c 3 $ip", $output, $status);
+       print_r($output);
+       print_r($status);*/
       /* $url='15266515';
         $health = Ping::check($url);
 
@@ -35,10 +38,10 @@ class UsersController extends Controller
         }*/
 
        
-        //$çıktı = shell_exec('sshpass -p "1" ssh-copy-id -i /usr/share/hvlkeys/ertan/id_rsa ubuntu@10.150.31.107 2>&1');
+       // $çıktı = shell_exec('sshpass -p "1" ssh-copy-id -i /usr/share/hvlkeys/ertan/id_rsa ubuntu@10.150.31.107 2>&1');
         //$çıktı = shell_exec('sshpass -p "1" scp /usr/share/hvlkeys/ertan/id_rsa.pub ubuntu@10.150.31.107:~/.ssh/authorized_keys 2>&1');
 
-      // echo "<pre>$çıktı</pre>";
+       //echo "<pre>$çıktı</pre>";
         //echo $process->getOutput();
         
        /* $process = new Process(array('ls', '-lsa'));
@@ -97,11 +100,16 @@ class UsersController extends Controller
         $server_name = $request->input('server_name');
       /*  $username= $request->input('username');
         $userpass = $request->input('userpass');*/
+        $servers=DB::select('SELECT * from servers where servername=?',[$server_name]);
+        if($servers){
+            return response()->json('false');
+        }
+        else{
         if($server_name){
             $url=$server_name;
-            $health = Ping::check($url);
-    
-            if($health == 200) {
+            exec("ping -c 3 $url", $output, $status);
+            
+            if($status == 0) {
                 return response()->json('true');
             } else {
                 return response()->json('false');
@@ -110,7 +118,7 @@ class UsersController extends Controller
     }
     else
         return response()->json('null');
-        
+}   
     }
     public function getServers()
     {
@@ -118,7 +126,13 @@ class UsersController extends Controller
         return response()->json($servers);
 
     }
+    public function getSSHCon(){
+
+        $sshcon=DB::select('select * from sshcon');
+        return response()->json($sshcon);
+    }
     public function servers(Request $request){
+       
         $server_id = $request->input('server_id');
         $server_name= $request->input('server_name');
         $server_tag = $request->input('server_tag');
@@ -126,17 +140,30 @@ class UsersController extends Controller
         $server_pass = $request->input('server_pass');
         $server_user = $request->input('server_user');
        
-        //$process = new Process(array('sshpass -p  $server_pass  -i /usr/share/hvlkeys/ertan/id_rsa $server_user@$server_name',''));
-        //$process->run();
-        
-        shell_exec('sshpass -p ?  ssh-copy-id -i /usr/share/hvlkeys/ertan/id_rsa ?@? 2>&1',[$server_pass,$server_user,$server_name]);
+        $çıktı = shell_exec('sshpass -p "'.$server_pass.'" ssh-copy-id -i /usr/share/hvlkeys/ertan/id_rsa "'.$server_user.'"@"'.$server_name.'" 2>&1');
         $servers = DB::insert('insert into servers (serverid, servername,servertag) values (?, ?, ?)', [$server_id, $server_name,$server_tag]);
         $sshcon=DB::insert('insert into sshcon (sshadminuser, sshserverid,sshserverport,sshserveruser,sshuser) values (?,?, ?,?,?)', [99,$server_id,22, $server_pass,$server_user ]);
        // return $servers;
-    
-       //return response()->json($process->getOutput());
+    return response()->json($çıktı);
 
     }
+    public function configSet(Request $request){
+        $server_id = $request->input('server_id');
+        $server_name= $request->input('server_name');
+        $ssh_user = $request->input('ssh_user');
+        $komut=$request->input('komut');
+
+        $çıktı = shell_exec('ssh -i /usr/share/hvlkeys/ertan/id_rsa "'.$ssh_user.'"@"'.$server_name.'" "'.$komut.'"');
+
+        return response()->json($çıktı);
+    }
+    public function getCurrent(Request $request){
+        $server_id= $request->input('server_id');
+        $current=DB::select('SELECT * from sshcon where sshserverid=?',[$server_id]);
+        return response()->json($current);
+    }
+    
+  
     public function delserver(Request $request){
         $serverid = $request->input('server_id');
         $servers = DB::delete('DELETE from servers where serverid=?', [$serverid]);

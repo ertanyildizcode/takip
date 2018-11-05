@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import {Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 //import Button from '@material-ui/core/Button';
-import { Badge,FormGroup} from 'reactstrap';
+import { Badge,FormGroup,Input,Label} from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,6 +16,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Iframe from 'react-iframe'
 import { withStyles } from '@material-ui/core/styles';
 function UserRow(props) {
  
@@ -66,9 +67,13 @@ class Colors extends Component {
       usernameError:"",
       danger: false,
       isLoaded:false,
-      errors: {}
+      errors: {},
+      komutsonuc:"",
+      isHidden:true,
+      isShow:false
     };
     this.toggle = this.toggle.bind(this);
+    this.toggleGeri = this.toggleGeri.bind(this);
   this.togglePrimary = this.togglePrimary.bind(this);
   this.toggleSuccess = this.toggleSuccess.bind(this);
   this.toggleWarning = this.toggleWarning.bind(this);
@@ -87,6 +92,12 @@ class Colors extends Component {
   toggleSuccess() {
     this.setState({
       success: !this.state.success,
+    });
+  }
+  toggleGeri() {
+    this.setState({
+      isHidden:true,
+      isShow:false
     });
   }
 
@@ -124,7 +135,7 @@ class Colors extends Component {
             servername: server_name.value,
             servertag:server_tag.value
       }
-     
+      if(id_error_success.textContent=="✔"){
         fetch('http://laravel.local/api/servers', {
           method: 'POST',
           
@@ -138,13 +149,14 @@ class Colors extends Component {
           headers: {
               'Content-Type': 'application/json'
           }
-      }).then(res => {
+      }).then(res=>res.json()).then(json=>{
+        console.log(json);
         this.state.items.push(items);
         this.setState({ open: false });
         this.togglePrimary() ;
     })
       .catch((err)=>console.log(err))
-
+  }
      
     }
     handleBlur() {
@@ -216,14 +228,138 @@ class Colors extends Component {
       });
       
       }
+      komut(event){
+       
+        
+       
+        var komut=document.getElementById("komut");
+        fetch('http://laravel.local/api/getCurrent', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            server_id:event.serverid,
+            server_name: event.servername,
+            server_pass:event.serverpass
+          })
+         
+      }).then(res=>res.json()).then(json=>{
+      console.log(json[0]);
+        fetch('http://laravel.local/api/configSet', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            server_id:json[0].sshuserid,
+            server_name: event.servername,
+            server_pass:json[0].sshsserveruser,
+            ssh_con_id:json[0].sshconid,
+            ssh_admin_user:json[0].sshadminuser,
+            ssh_server_port:json[0].sshserverport,
+            ssh_user:json[0].sshuser,
+            komut:komut.value
+
+          })
+         
+      }).then(res=>res.json()).then(json=>{
+      console.log(json);
+      this.setState({komutsonuc:json});
+     
+      
+      })
+      .catch((error) => {
+          throw (error);
+      });
+      
+      })
+      .catch((error) => {
+          throw (error);
+      });
+        
+        
+      }
+      dosyaContent(event){
+
+        var root_command="cat ";
+        var komut=document.getElementById("komut_dosya");
+        var res=root_command.concat(komut.value);
+        fetch('http://laravel.local/api/getCurrent', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            server_id:event.serverid,
+            server_name: event.servername,
+            server_pass:event.serverpass
+          })
+         
+      }).then(res=>res.json()).then(json=>{
+      console.log(json[0]);
+        fetch('http://laravel.local/api/configSet', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            server_id:json[0].sshuserid,
+            server_name: event.servername,
+            server_pass:json[0].sshsserveruser,
+            ssh_con_id:json[0].sshconid,
+            ssh_admin_user:json[0].sshadminuser,
+            ssh_server_port:json[0].sshserverport,
+            ssh_user:json[0].sshuser,
+            komut:res
+
+          })
+         
+      }).then(res=>res.json()).then(json=>{
+      this.toggleSuccess();
+      
+      this.setState({komutsonuc:json,isHidden:false,isShow:true});
+     
+      
+      })
+      .catch((error) => {
+          throw (error);
+      });
+      
+      })
+      .catch((error) => {
+          throw (error);
+      });
+
+      }
   render() {
     const { items }= this.state;
+    var komutsonuc= this.state.komutsonuc;
+    var isHidden = {
+      display: this.state.isHidden ? "block" : "none"
+    };
+    var isShow = {
+      display: this.state.isShow ? "block" : "none"
+    };
     return (
+     
       <div className="animated fadeIn">
-        <div className="card">
+        <div className="card" style={isHidden}>
           <div className="card-header">
             <i className="fa fa-server"></i> Sunucular
           </div>
+          <Iframe url="http://localhost:9002/"
+        width="950px"
+        height="300px"
+        id="myId"
+        className="myClassname"
+        display="initial"
+        position="relative"
+        allowFullScreen/>
           <div className="card-body">
             <Table >
         <TableHead>
@@ -231,6 +367,8 @@ class Colors extends Component {
             <CustomTableCell >Serverid</CustomTableCell>
             <CustomTableCell >Servername</CustomTableCell>
             <CustomTableCell >Servertag</CustomTableCell>
+            <CustomTableCell >Komut Çalıştır</CustomTableCell>
+            <CustomTableCell >Dosya İçeriği</CustomTableCell>
             <CustomTableCell >Delete</CustomTableCell>
           </TableRow>
           </TableHead>
@@ -241,6 +379,55 @@ class Colors extends Component {
       <CustomTableCell >{row.serverid}</CustomTableCell>
       <CustomTableCell >{row.servername}</CustomTableCell>
       <CustomTableCell >{row.servertag}</CustomTableCell>
+      <CustomTableCell >
+        
+        <Button color="warning" onClick={this.toggleWarning} className="mr-1">Komut Çalıştır</Button>
+        <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
+                      className={'modal-warning ' + this.props.className}>
+                 <ModalHeader toggle={this.toggleWarning}>Sunucu Komut</ModalHeader>
+                 <ModalBody>
+                 <FormGroup row>
+                 <Col md="2">
+                      <Label htmlFor="textarea-input">Komut:</Label>
+                    </Col>
+                 <Col xs="8" md="6">
+                      <Input type="textarea" name="textarea-input" id="komut" rows="3"
+                              />
+                              <div>
+                              <p>{komutsonuc}</p>
+                              </div>
+                    </Col>
+                    </FormGroup>
+                 </ModalBody>
+                 <ModalFooter>
+                   <Button color="primary" onClick={this.komut.bind(this,row)}>Çalıştır</Button>{' '}
+                   <Button color="secondary" onClick={this.toggleWarning}>Çıkış</Button>
+                 </ModalFooter>
+               </Modal>
+        </CustomTableCell>
+        <CustomTableCell >
+        <Button color="success" onClick={this.toggleSuccess} className="mr-1">Dosya İçeriği</Button>
+        <Modal isOpen={this.state.success} toggle={this.toggleSuccess}
+                      className={'modal-success ' + this.props.className}>
+                 <ModalHeader toggle={this.toggleSuccess}>Dosya Seçeneği</ModalHeader>
+                 <ModalBody>
+                 <FormGroup row>
+                 <Col md="2">
+                      <Label htmlFor="textarea-input">Komut:</Label>
+                    </Col>
+                 <Col xs="8" md="6">
+                      <TextField type="text" name="textarea-input" id="komut_dosya" rows="3"
+                              />
+                            
+                    </Col>
+                    </FormGroup>
+                 </ModalBody>
+                 <ModalFooter>
+                   <Button color="success" onClick={this.dosyaContent.bind(this,row)}>Göster</Button>{' '}
+                   <Button color="secondary" onClick={this.toggleSuccess}>Çıkış</Button>
+                 </ModalFooter>
+               </Modal>
+           </CustomTableCell>
       <CustomTableCell >
            
             <Button color="danger" onClick={this.onDelete.bind(this,row)} className="mr-1">Delete</Button>
@@ -357,8 +544,22 @@ class Colors extends Component {
          
           </div>
         </div>
-      
+        
+        <Col xs="12" sm="12" md="10">
+            <Card style={isShow}>
+              <CardHeader>
+                Aratılan Dosya İçeriği
+                <Button color="info" className={'float-right mb-0'} size={'sm'} onClick={this.toggleGeri}>Geri</Button>
+              </CardHeader>
+              <CardBody>
+                {komutsonuc}
+              </CardBody>
+             
+            </Card>
+          </Col>
+          
       </div>
+        
     );
   }
 }

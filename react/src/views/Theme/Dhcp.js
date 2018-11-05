@@ -102,7 +102,7 @@ class Dhcp extends Component {
         });
       }
       componentDidMount() {
-        fetch('http://laravel.local/api/getServers').then(res=>res.json()).then(json=>{
+        fetch('http://laravel.local/api/getSSHCon').then(res=>res.json()).then(json=>{
           this.setState({
            
             items:json,
@@ -228,22 +228,25 @@ class Dhcp extends Component {
                 <TableHead>
                   <TableRow>
                     <CustomTableCell >SSHConID</CustomTableCell> 
-                    <CustomTableCell >Servername</CustomTableCell>
-                    <CustomTableCell >Servertag</CustomTableCell>
-                    <CustomTableCell >Delete</CustomTableCell>
+                    <CustomTableCell >SSHAdminUser</CustomTableCell>
+                    <CustomTableCell >SSHServerID</CustomTableCell>
+                    <CustomTableCell >SSHServerPort</CustomTableCell>
+                    <CustomTableCell >SSHServerUser</CustomTableCell>
+                    <CustomTableCell >SSHUser</CustomTableCell>
+                    
                   </TableRow>
                   </TableHead>
                   <TableBody>
             {items.map(row => {
               return (
                <TableRow>
-              <CustomTableCell >{row.serverid}</CustomTableCell>
-              <CustomTableCell >{row.servername}</CustomTableCell>
-              <CustomTableCell >{row.servertag}</CustomTableCell>
-              <CustomTableCell >
-                   
-                    <Button color="danger" onClick={this.onDelete.bind(this,row)} className="mr-1">Delete</Button>
-                    </CustomTableCell>
+              <CustomTableCell >{row.sshconid}</CustomTableCell>
+              <CustomTableCell >{row.sshadminuser}</CustomTableCell>
+              <CustomTableCell >{row.sshserverid}</CustomTableCell>
+              <CustomTableCell >{row.sshserverport}</CustomTableCell>
+              <CustomTableCell >{row.sshserveruser}</CustomTableCell>
+              <CustomTableCell >{row.sshuser}</CustomTableCell>
+
               </TableRow>
                     );
                   })}

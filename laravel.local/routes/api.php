@@ -30,5 +30,11 @@ Route::post('validation','UsersController@validation');
 Route::post('validationServers','UsersController@validationServers');
 Route::post('servers','UsersController@servers');
 Route::get('getServers','UsersController@getServers');
+Route::get('getSSHCon','UsersController@getSSHCon');
 
 Route::delete('delserver','UsersController@delserver');
+
+Route::post('configSet','UsersController@configSet');
+Route::post('getCurrent','UsersController@getCurrent');
+
+

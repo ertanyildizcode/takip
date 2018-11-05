@@ -40,7 +40,8 @@ modal:false,
 primary: false,
 success: false,
 warning: false,
-danger: false
+danger: false,
+isHidden:false
 };
 this.toggle = this.toggle.bind(this);
 this.togglePrimary = this.togglePrimary.bind(this);
@@ -144,6 +145,9 @@ document.getElementById("demo5").style.display = "none" ;
 }
 
 render() {
+    var isHidden = {
+        display: this.state.isHidden ? "block" : "none"
+      };
 return (
 <Row>
 <Col xs="10" md="4">
@@ -169,7 +173,7 @@ return (
 </CardBody>
 </Card>
 </Col>
-<Col xs="12" sm="6" id='demo'>
+<Col xs="12" sm="6" id='demo' style={ isHidden }>
 <Card>
 <CardHeader>
 <strong>İşlem</strong>
@@ -182,7 +186,7 @@ return (
 <option value="4">Yeni Kurulum</option>
 </Input>
 <br></br>
-<FormGroup row id='demo2'>
+<FormGroup row id='demo2' style={ isHidden }>
 <Col xs="10" md="20">
 <form>
 <Input type="text" id="ip-address" name="text-input" size="50" placeholder="Ip address veya Hostname:" />
@@ -210,7 +214,7 @@ className={'modal-primary ' + this.props.className}>
 </form>
 </Col>
 </FormGroup>
-<FormGroup row id='demo3'>
+<FormGroup row id='demo3' style={ isHidden }>
 <Col xs="10" md="20">
 <Input type="select" name="select" id="dizingoc" onChange={this.myFunctionDizinGoc}>
 <option value="0">Lütfen Seçin</option>
@@ -219,7 +223,7 @@ className={'modal-primary ' + this.props.className}>
 </Input>
 </Col>
 </FormGroup>
-<FormGroup row id='demo4'>
+<FormGroup row id='demo4' style={ isHidden }>
 <Col xs="10" md="20">
 <form>
 <Input type="text" id="ip-address" name="text-input" size="50" placeholder="sambaIp address veya Hostname:" />
@@ -248,7 +252,7 @@ className={'modal-primary ' + this.props.className}>
 </form>
 </Col>
 </FormGroup>
-<FormGroup row id='demo5'>
+<FormGroup row id='demo5' style={ isHidden }>
 <Col xs="10" md="20">
 <form>
 <Input type="text" id="ip-address" name="text-input" size="50" placeholder="ldapIp address veya Hostname:" />
